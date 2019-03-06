@@ -15,7 +15,10 @@ public class MainFrame extends JFrame{
 		setResizable(false);
 		add(mainMenu);
 		altaCuentas = new AltaCuentas();
+		ModificacionCuenta modCuenta = new ModificacionCuenta ();
 		mainMenu.addTab("Alta", altaCuentas);
+		mainMenu.addTab("Modificación", modCuenta);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 	}
 
