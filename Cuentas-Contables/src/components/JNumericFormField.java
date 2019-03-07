@@ -5,8 +5,8 @@ import java.awt.event.*;
 public class JNumericFormField extends JFormField implements KeyListener{
 	private int size;
 
-	public JNumericFormField(){
-		this(5,null);
+	public JNumericFormField(int size){
+		this(size,null);
 	}
 	
 	public JNumericFormField(int size, JFormField field){

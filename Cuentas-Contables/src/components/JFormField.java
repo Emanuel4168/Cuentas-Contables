@@ -9,6 +9,7 @@ public class JFormField extends JTextField implements ActionListener{
 	
 	public JFormField(JFormField nextField) {
 		this.nextField = nextField;
+		addActionListener(this);
 	}
 
 	public JFormField getNextField() {
@@ -21,7 +22,8 @@ public class JFormField extends JTextField implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		nextField.requestFocus();
+		if(nextField != null)
+			nextField.grabFocus();
 	}	
 	
 }

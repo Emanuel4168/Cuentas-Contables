@@ -6,8 +6,8 @@ import java.awt.event.KeyListener;
 public class JTextFormField extends JFormField implements KeyListener{
 	private int size;
 
-	public JTextFormField(){
-		this(5,null);
+	public JTextFormField(int size){
+		this(size,null);
 	}
 	
 	public JTextFormField(int size, JFormField field){
