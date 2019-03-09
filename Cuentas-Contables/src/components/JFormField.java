@@ -5,25 +5,31 @@ import javax.swing.*;
 
 public class JFormField extends JTextField implements ActionListener{
 
-	private JFormField nextField;
+	private JComponent nextComponent;
 	
-	public JFormField(JFormField nextField) {
-		this.nextField = nextField;
+	public JFormField(JComponent nextComponent) {
+		this.nextComponent = nextComponent;
 		addActionListener(this);
 	}
 
-	public JFormField getNextField() {
-		return nextField;
+	public JComponent getNextComponent() {
+		return nextComponent;
 	}
 
-	public void setNextField(JFormField nextField) {
-		this.nextField = nextField;
+	public void setNextComponent(JComponent nextComponent) {
+		this.nextComponent = nextComponent;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(nextField != null)
-			nextField.grabFocus();
+		if(nextComponent != null) {
+			nextComponent.grabFocus();
+			
+			if(nextComponent instanceof JButton) {
+				JButton button = (JButton) nextComponent;
+				button.doClick();
+			}
+		}
 	}	
 	
 }

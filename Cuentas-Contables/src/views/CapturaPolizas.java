@@ -37,8 +37,8 @@ public class CapturaPolizas extends JPanel{
 		txtPoliza = new JNumericFormField(4);
 		txtSubSubCuenta = new JNumericFormField(6);
 		txtImporte = new JNumericFormField(8);
-		txtPoliza.setNextField(txtSubSubCuenta);
-		txtSubSubCuenta.setNextField(txtPoliza);
+		txtPoliza.setNextComponent(txtSubSubCuenta);
+		txtSubSubCuenta.setNextComponent(txtPoliza);
 		
 		JLabel poliza = new JLabel("Poliza:");
 		JLabel subSubCuenta = new JLabel("SubSub Cuenta:");

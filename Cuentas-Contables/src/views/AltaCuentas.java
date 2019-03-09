@@ -38,8 +38,8 @@ public class AltaCuentas extends JPanel{
 		txtNombre = new JTextFormField(15);
 		txtSaldo = new JNumericFormField(8);
 		
-		txtCuenta.setNextField(txtNombre);
-		txtNombre.setNextField(txtSaldo);
+		txtCuenta.setNextComponent(txtNombre);
+		txtNombre.setNextComponent(txtSaldo);
 		
 		JLabel cuenta = new JLabel("Cuenta:");
 		JLabel name = new JLabel("Nombre:");
@@ -62,6 +62,7 @@ public class AltaCuentas extends JPanel{
 		JPanel south = new JPanel();
 		btnGuardar = new JButton("Aceptar");
 		btnLimpiar = new JButton("Limpiar");
+		txtSaldo.setNextComponent(btnGuardar);
 		south.add(btnGuardar);
 		south.add(btnLimpiar);
 		add(south,BorderLayout.SOUTH);
