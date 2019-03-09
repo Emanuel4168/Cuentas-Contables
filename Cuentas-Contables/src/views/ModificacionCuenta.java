@@ -6,6 +6,7 @@ import components.*;
 
 public class ModificacionCuenta extends JPanel{
 	private JNumericFormField txtCuenta;
+	private JTextFormField txtNombre;
 	private JButton btnGuardar,btnLimpiar;
 	
 	public ModificacionCuenta() {
@@ -24,14 +25,27 @@ public class ModificacionCuenta extends JPanel{
 	}
 	
 	private void createCenterPane(){
-		JPanel center = new JPanel();
-		txtCuenta = new JNumericFormField(6,null);
+		JPanel center = new JPanel(new GridLayout(0,1)),
+				field1 = new JPanel(), field2 = new JPanel();
+		txtCuenta = new JNumericFormField(6);
+		txtNombre = new JTextFormField(30);
+		
+		txtCuenta.setNextComponent(txtNombre);
+		
 		txtCuenta.setPreferredSize(new Dimension(150,30));
+		txtNombre.setPreferredSize(new Dimension(150,30));
 		
 		JLabel cuenta = new JLabel("Cuenta:");
+		JLabel nombre = new JLabel("Nuevo Nombre:");
 		cuenta.setHorizontalAlignment(SwingConstants.RIGHT);
-		center.add(cuenta);
-		center.add(txtCuenta);
+		nombre.setHorizontalAlignment(SwingConstants.RIGHT);
+		
+		field1.add(cuenta);
+		field1.add(txtCuenta);
+		field2.add(nombre);
+		field2.add(txtNombre);
+		center.add(field1);
+		center.add(field2);
 		center.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		add(center,BorderLayout.CENTER);
 	}
