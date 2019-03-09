@@ -2,10 +2,15 @@ package views;
 
 import javax.swing.*;
 
+import controllers.*;
+import models.*;
+
 public class MainFrame extends JFrame{
 	
 	private JTabbedPane mainMenu;
 	private JPanel altaCuentas,modCuenta,bajaCuenta,consultaCuentas,capturaPolizas;
+	private AltaCuentasModel altaCM;
+	private AltaCuentasController altaCC;
 	
 	public MainFrame() {
 		super("Cuentas Contables");
@@ -27,7 +32,18 @@ public class MainFrame extends JFrame{
 		mainMenu.addTab("Crear Polizas", capturaPolizas);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		createModels();
+		addConrollers();
 		setVisible(true);
+	}
+	
+	private void createModels() {
+		altaCM= new AltaCuentasModel();
+	}
+	
+	private void addConrollers() {
+		altaCC = new AltaCuentasController(altaCM,(AltaCuentas) altaCuentas);
+		((AltaCuentas)altaCuentas).setController(altaCC);
 	}
 
 }

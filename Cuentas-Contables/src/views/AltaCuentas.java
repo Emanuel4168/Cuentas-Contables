@@ -3,12 +3,14 @@ package views;
 import java.awt.*;
 import javax.swing.*;
 import components.*;
+import controllers.AltaCuentasController;
 
 public class AltaCuentas extends JPanel{
 	
 	private JNumericFormField txtCuenta,txtSaldo;
 	private JTextFormField txtNombre;
 	private JButton btnGuardar,btnLimpiar;
+	private AltaCuentasController controller;
 	
 	public AltaCuentas() {
 		super(new BorderLayout());
@@ -17,6 +19,11 @@ public class AltaCuentas extends JPanel{
 		createSouthPane();
 	}
 	
+	private void addListeners() {
+		btnGuardar.addActionListener(controller);
+		btnLimpiar.addActionListener(controller);
+	}
+
 	private void createNortPane() {
 		JPanel south = new JPanel(new GridLayout(0,2));
 		JLabel lblTitle = new JLabel("Alta de Cuentas");
@@ -58,6 +65,41 @@ public class AltaCuentas extends JPanel{
 		south.add(btnGuardar);
 		south.add(btnLimpiar);
 		add(south,BorderLayout.SOUTH);
+	}
+	
+	public void showError() {
+		JOptionPane.showMessageDialog(this, "Error al llenar formulario");
+	}
+	
+	public void limpiar() {
+		txtCuenta.setText("");
+		txtNombre.setText("");
+		txtSaldo.setText("");
+	}
+
+	public JNumericFormField getTxtCuenta() {
+		return txtCuenta;
+	}
+
+	public JNumericFormField getTxtSaldo() {
+		return txtSaldo;
+	}
+
+	public JTextFormField getTxtNombre() {
+		return txtNombre;
+	}
+
+	public JButton getBtnGuardar() {
+		return btnGuardar;
+	}
+
+	public JButton getBtnLimpiar() {
+		return btnLimpiar;
+	}
+
+	public void setController(AltaCuentasController controller) {
+		this.controller = controller;
+		addListeners();
 	}
 
 }
