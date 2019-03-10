@@ -3,11 +3,13 @@ package views;
 import java.awt.*;
 import javax.swing.*;
 import components.*;
+import controllers.ModificacionCuentasController;
 
 public class ModificacionCuenta extends JPanel{
 	private JNumericFormField txtCuenta;
 	private JTextFormField txtNombre;
 	private JButton btnGuardar,btnLimpiar;
+	private ModificacionCuentasController controller;
 	
 	public ModificacionCuenta() {
 		super(new BorderLayout());
@@ -54,8 +56,48 @@ public class ModificacionCuenta extends JPanel{
 		JPanel south = new JPanel();
 		btnGuardar = new JButton("Aceptar");
 		btnLimpiar = new JButton("Limpiar");
+		txtNombre.setNextComponent(btnGuardar);
 		south.add(btnGuardar);
 		south.add(btnLimpiar);
 		add(south,BorderLayout.SOUTH);
+	}
+	
+	public void showError() {
+		JOptionPane.showMessageDialog(this, "La cuenta no ha sido Encontrada");
+	}
+	
+	public void showSucces() {
+		JOptionPane.showMessageDialog(this, "La cuenta ha sido Modificada");
+	}
+	
+	public void limpiar() {
+		txtCuenta.setText("");
+		txtNombre.setText("");
+	}
+	
+	private void addListeners() {
+		btnGuardar.addActionListener(controller);
+		btnLimpiar.addActionListener(controller);
+	}
+	
+	public void setController(ModificacionCuentasController cont) {
+		controller = cont;
+		addListeners();
+	}
+
+	public JNumericFormField getTxtCuenta() {
+		return txtCuenta;
+	}
+
+	public JTextFormField getTxtNombre() {
+		return txtNombre;
+	}
+
+	public JButton getBtnGuardar() {
+		return btnGuardar;
+	}
+
+	public JButton getBtnLimpiar() {
+		return btnLimpiar;
 	}
 }

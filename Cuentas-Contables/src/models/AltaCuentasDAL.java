@@ -60,6 +60,43 @@ public class AltaCuentasDAL {
 		
 	}
 	
+	public Cuenta getCuenta(String cuenta) {
+		int pos = this.busquedaBinaria(cuenta);
+		Cuenta cuentaOBJ = null;
+		if(pos == -1)
+			return cuentaOBJ;	
+		
+		try {
+			indices.seek((pos -1)*16);
+			indices.readUTF();
+			long posCuenta = indices.readLong();
+			cuentas.seek((posCuenta - 1)*TOTAL_REGISTRATIONS);
+			String cta = cuentas.readUTF(),nombre = cuentas.readUTF();
+			float saldo = cuentas.readFloat(),cargo= cuentas.readFloat(),abono = cuentas.readFloat();
+			char status = cuentas.readChar();
+			cuentaOBJ = new Cuenta(cta,nombre,saldo,cargo,abono,status);
+		}catch(IOException e) {
+			
+		}
+		return cuentaOBJ;
+	}
+
+	public boolean modificarCuenta(String cuenta, String nNombre) {
+		int pos = this.busquedaBinaria(cuenta);
+		if(pos == -1)
+			return false;
+		
+		try {
+			indices.seek((pos -1)*16);
+			indices.readUTF();
+			long posCuenta = indices.readLong();
+			cuentas.seek((posCuenta - 1)*TOTAL_REGISTRATIONS);
+			cuentas.readUTF();
+			cuentas.writeUTF(Rutinas.PonBlancos(nNombre,20));
+			return true;
+		} catch (IOException e) {return false;}
+	}
+	
 	public void quickSort(int limIzq, int limDer) {
 		try {
 			int i = limIzq, d = limDer, m = (i + d)/2;
@@ -112,5 +149,7 @@ public class AltaCuentasDAL {
 			return;
 		}
 	}
+	
+	
 
 }
