@@ -1,6 +1,7 @@
 package models;
 
 import java.io.*;
+import java.util.ArrayList;
 
 import routines.Rutinas;
 
@@ -40,7 +41,7 @@ public class AltaCuentasDAL {
 	public int busquedaBinaria(String cuenta) {
 		try {
 			String cuentaActual;
-			int largo = (int) (indices.length()/ 16),inferior =0, mitad, superior = largo;
+			int largo = (int) (indices.length()/ 16),inferior =1, mitad, superior = largo;
 			while(inferior <= superior) {
 				mitad = (inferior + superior)/2;
 				System.out.println(largo+" "+inferior+" "+superior+" "+mitad);
@@ -97,27 +98,65 @@ public class AltaCuentasDAL {
 		} catch (IOException e) {return false;}
 	}
 	
+	public String[][] cuentasAsMatrix(){
+		String[][] cuentasMatrix= null; 
+		long registros;
+		try {
+			registros = cuentas.length()/TOTAL_REGISTRATIONS;
+			cuentasMatrix = new String[(int) registros][6];
+			for(int i = 0; i < registros; i++) {
+				cuentas.seek(i * TOTAL_REGISTRATIONS);
+				cuentasMatrix[i][0] = cuentas.readUTF();
+				cuentasMatrix[i][1] = cuentas.readUTF();
+				cuentasMatrix[i][2] = cuentas.readFloat()+"";
+				cuentasMatrix[i][3] = cuentas.readFloat()+"";
+				cuentasMatrix[i][4] = cuentas.readFloat()+"";
+				cuentasMatrix[i][5] = cuentas.readChar()+"";
+			}
+			return cuentasMatrix;
+		} catch (IOException e) {}
+		return cuentasMatrix;
+	}
+	
+	public String[] getLastCuentaAsArray() {
+		String [] cuenta = null;
+		long registros;
+		try {
+			registros = cuentas.length()/TOTAL_REGISTRATIONS;
+			cuenta = new String[6];
+			cuentas.seek((registros-1) * TOTAL_REGISTRATIONS);
+			cuenta[0] = cuentas.readUTF();
+			cuenta[1] = cuentas.readUTF();
+			cuenta[2] = cuentas.readFloat()+"";
+			cuenta[3] = cuentas.readFloat()+"";
+			cuenta[4] = cuentas.readFloat()+"";
+			cuenta[5] = cuentas.readChar()+"";
+			return cuenta;
+		} catch (IOException e) {}
+		return cuenta;
+	}
+	
 	public void quickSort(int limIzq, int limDer) {
 		try {
 			int i = limIzq, d = limDer, m = (i + d)/2;
-			indices.seek((m -1) * TOTAL_REGISTRATIONS);
+			indices.seek((m -1) * 16);
 			String pivote = indices.readUTF();
-			indices.seek((i -1) * TOTAL_REGISTRATIONS);
+			indices.seek((i -1) * 16);
 			String izq = indices.readUTF();
-			indices.seek((d -1) * TOTAL_REGISTRATIONS);
+			indices.seek((d -1) * 16);
 			String der = indices.readUTF();
 			
 			
 			do {
 				while(izq.compareTo(pivote) <0 && i < limDer) {
 					i++;
-					indices.seek((i -1) * TOTAL_REGISTRATIONS);
+					indices.seek((i -1) * 16);
 					izq = indices.readUTF();
 				}
 
 				while(pivote.compareTo(der) <0 && d >limIzq) {
 					d--;
-					indices.seek((d - 1) * TOTAL_REGISTRATIONS);
+					indices.seek((d - 1) * 16);
 					der = indices.readUTF();
 				}
 				
@@ -150,6 +189,4 @@ public class AltaCuentasDAL {
 		}
 	}
 	
-	
-
 }

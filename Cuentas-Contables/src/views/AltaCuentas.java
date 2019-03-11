@@ -35,7 +35,7 @@ public class AltaCuentas extends JPanel{
 	private void createCenterPane(){
 		JPanel center = new JPanel(new GridLayout(0,2,20,60));
 		txtCuenta = new JNumericFormField(6);
-		txtNombre = new JTextFormField(15);
+		txtNombre = new JTextFormField(30);
 		txtSaldo = new JNumericFormField(8);
 		
 		txtCuenta.setNextComponent(txtNombre);
