@@ -22,7 +22,6 @@ public class ConsultaCuentasController  implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("XXX");
-		view.createCenterPane();
+		view.updateTable();
 	}
 }

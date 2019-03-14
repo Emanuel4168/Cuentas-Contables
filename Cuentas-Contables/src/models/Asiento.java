@@ -1,23 +1,25 @@
 package models;
 
-public class Poliza {
-	private int poliza;
+public class Asiento {
+	private String poliza;
 	private String subSubCuenta;
 	private char tipo;
+	private char status;
 	private float importe;
 	
-	public Poliza(int poliza, String subSubCuenta, char tipo, float importe) {
+	public Asiento(String poliza, String subSubCuenta, char tipo, char status, float importe) {
 		this.poliza = poliza;
 		this.subSubCuenta = subSubCuenta;
 		this.tipo = tipo;
 		this.importe = importe;
+		this.status = status;
 	}
 
-	public int getPoliza() {
+	public String getPoliza() {
 		return poliza;
 	}
 
-	public void setPoliza(int poliza) {
+	public void setPoliza(String poliza) {
 		this.poliza = poliza;
 	}
 
@@ -43,6 +45,14 @@ public class Poliza {
 
 	public void setImporte(float importe) {
 		this.importe = importe;
+	}
+
+	public char getStatus() {
+		return status;
+	}
+
+	public void setStatus(char status) {
+		this.status = status;
 	}
 	
 	

@@ -15,6 +15,10 @@ public class MainFrame extends JFrame{
 	private ModificacionCuentasController modificacionCC;
 	private ConsultaCuentasModel consultaCM;
 	private ConsultaCuentasController consultaCC;
+	private BajaCuentaModel bajaCM;
+	private BajaCuentaController bajaCC;
+	private CapturaPolizasModel capturaPM;
+	private CapturaPolizasController capturaPC;
 	
 	public MainFrame() {
 		super("Cuentas Contables");
@@ -45,6 +49,8 @@ public class MainFrame extends JFrame{
 		altaCM= new AltaCuentasModel();
 		modificacionCM = new ModificacionCuentasModel();
 		consultaCM = new ConsultaCuentasModel();
+		bajaCM = new BajaCuentaModel();
+		capturaPM = new CapturaPolizasModel();
 	}
 	
 	private void addConrollers() {
@@ -56,6 +62,12 @@ public class MainFrame extends JFrame{
 		
 		consultaCC = new ConsultaCuentasController(consultaCM,(ConsultaCuentas) consultaCuentas);
 		((ConsultaCuentas)consultaCuentas).setController(consultaCC);
+		
+		bajaCC = new BajaCuentaController(bajaCM,(BajaCuenta)bajaCuenta);
+		((BajaCuenta)bajaCuenta).setController(bajaCC);
+		
+		capturaPC = new CapturaPolizasController(capturaPM, (CapturaPolizas)capturaPolizas); 
+		((CapturaPolizas)capturaPolizas).setController(capturaPC);
 	}
 
 }

@@ -4,10 +4,12 @@ import java.awt.*;
 import javax.swing.*;
 
 import components.JNumericFormField;
+import controllers.BajaCuentaController;
 
 public class BajaCuenta  extends JPanel{
 	private JNumericFormField txtCuenta;
 	private JButton btnGuardar,btnLimpiar;
+	private BajaCuentaController controller;
 	
 	public BajaCuenta() {
 		super(new BorderLayout());
@@ -44,5 +46,39 @@ public class BajaCuenta  extends JPanel{
 		south.add(btnGuardar);
 		south.add(btnLimpiar);
 		add(south,BorderLayout.SOUTH);
+	}
+	
+	public void showError() {
+		JOptionPane.showMessageDialog(this, "La cuenta no ha sido Encontrada");
+	}
+	
+	public void showSucces() {
+		JOptionPane.showMessageDialog(this, "La cuenta se ha dado de baja");
+	}
+	
+	public void limpiar() {
+		txtCuenta.setText("");
+	}
+	
+	private void addListeners() {
+		btnGuardar.addActionListener(controller);
+		btnLimpiar.addActionListener(controller);;
+	}
+	
+	public JButton getBtnGuardar() {
+		return btnGuardar;
+	}
+
+	public JButton getBtnLimpiar() {
+		return btnLimpiar;
+	}
+
+	public JNumericFormField getTxtCuenta() {
+		return txtCuenta;
+	}
+
+	public void setController(BajaCuentaController controller) {
+		this.controller = controller;
+		addListeners();
 	}
 }

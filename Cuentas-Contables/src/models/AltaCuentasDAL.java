@@ -136,6 +136,18 @@ public class AltaCuentasDAL {
 		return cuenta;
 	}
 	
+	public boolean bajaCuenta(String cuentaBaja) {
+		int pos = busquedaBinaria(cuentaBaja);
+		if(pos == -1)
+			return false;
+		
+		try {
+			cuentas.seek(((pos-1)*TOTAL_REGISTRATIONS)+42);
+			cuentas.writeChar('B');
+			return true;
+		}catch(Exception e) {return false;}
+	}
+	
 	public void quickSort(int limIzq, int limDer) {
 		try {
 			int i = limIzq, d = limDer, m = (i + d)/2;

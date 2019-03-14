@@ -41,17 +41,20 @@ public class ConsultaCuentas extends JPanel{
 		add(south,BorderLayout.SOUTH);
 	}
 	
-	public void createCenterPane() {
+	private void createCenterPane() {
 		center = new JPanel();
-		System.out.println(cuentas.length);
 		cuentas = controller.getCuentas();
-		System.out.println(cuentas.length);
 		tablaConsultas = new JTable(cuentas,columnNames);
 		scroll = new JScrollPane(tablaConsultas);
 		center.add(scroll);
 		add(center,BorderLayout.CENTER);
-		SwingUtilities.updateComponentTreeUI(this);
-		update(getGraphics());
+	}
+	
+	public void updateTable() {
+		cuentas = controller.getCuentas();
+		tablaConsultas = new JTable(cuentas,columnNames);
+		SwingUtilities.updateComponentTreeUI(tablaConsultas);
+		tablaConsultas.update(tablaConsultas.getGraphics());
 	}
 	
 	public void setCuentas(String[][] cuentas) {
