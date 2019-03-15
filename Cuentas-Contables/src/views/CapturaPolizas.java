@@ -120,7 +120,7 @@ public class CapturaPolizas extends JPanel{
 	}
 	
 	public Asiento[] polizaAsArray() {
-		Asiento[] polizaArray = new Asiento[poliza.size()];
+		Asiento[] polizaArray = new Asiento[poliza.size()-1];
 		Vector<String> currentRegistry;
 		for(int i = 1; i < poliza.size(); i++) {
 			currentRegistry = poliza.get(i);

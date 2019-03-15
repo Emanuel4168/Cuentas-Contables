@@ -38,6 +38,7 @@ public class CapturaPolizasController implements ActionListener {
 			}
 			
 			Asiento[] poliza = view.polizaAsArray();
+			System.out.println("POLIZAS: "+poliza.length);
 			for(int i = 0;i < poliza.length; i++) {
 				if(!model.grabarAsiento(poliza[i])) {
 					view.showNotFoundError(poliza[i].getSubSubCuenta());
@@ -50,7 +51,9 @@ public class CapturaPolizasController implements ActionListener {
 			return;
 		}
 		if(e.getSource() == view.getBtnAfectar()) {
+			model.afectar();
 			
+			return;
 		}
 		
 	}

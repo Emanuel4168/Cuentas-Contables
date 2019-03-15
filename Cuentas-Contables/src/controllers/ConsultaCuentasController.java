@@ -2,6 +2,7 @@ package controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import models.ConsultaCuentasModel;
 import views.ConsultaCuentas;
@@ -16,12 +17,12 @@ public class ConsultaCuentasController  implements ActionListener{
 		this.view = view;
 	}
 	
-	public String[][] getCuentas() {
-		return model.cuentasAsMatrix();
+	public Vector<Vector<String>> getCuentas() {
+		return model.cuentasAsVector();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		view.updateTable();
+		view.updateTable(model.cuentasAsVector());
 	}
 }

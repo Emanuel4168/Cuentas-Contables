@@ -2,6 +2,7 @@ package models;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import routines.Rutinas;
 
@@ -98,24 +99,33 @@ public class AltaCuentasDAL {
 		} catch (IOException e) {return false;}
 	}
 	
-	public String[][] cuentasAsMatrix(){
-		String[][] cuentasMatrix= null; 
+	public Vector<Vector<String>> cuentasAsVector(){
+		Vector<Vector<String>> cuentasVector = null; 
+		Vector<String> currentCuenta;
 		long registros;
 		try {
 			registros = cuentas.length()/TOTAL_REGISTRATIONS;
-			cuentasMatrix = new String[(int) registros][6];
+			cuentasVector = new Vector<Vector<String>>();
 			for(int i = 0; i < registros; i++) {
 				cuentas.seek(i * TOTAL_REGISTRATIONS);
-				cuentasMatrix[i][0] = cuentas.readUTF();
-				cuentasMatrix[i][1] = cuentas.readUTF();
-				cuentasMatrix[i][2] = cuentas.readFloat()+"";
-				cuentasMatrix[i][3] = cuentas.readFloat()+"";
-				cuentasMatrix[i][4] = cuentas.readFloat()+"";
-				cuentasMatrix[i][5] = cuentas.readChar()+"";
+				currentCuenta = new Vector<String>();
+				currentCuenta.add(cuentas.readUTF());
+				currentCuenta.add(cuentas.readUTF());
+				currentCuenta.add(cuentas.readFloat()+"");
+				currentCuenta.add(cuentas.readFloat()+"");
+				currentCuenta.add(cuentas.readFloat()+"");
+				currentCuenta.add(cuentas.readChar()+"");
+				cuentasVector.add(currentCuenta);
 			}
-			return cuentasMatrix;
+			return cuentasVector;
 		} catch (IOException e) {}
-		return cuentasMatrix;
+		return cuentasVector;
+	}
+	
+	public Long getTotalCuentas() {
+		try {
+			return cuentas.length()/TOTAL_REGISTRATIONS;
+		} catch (IOException e) {return 0l;}	
 	}
 	
 	public String[] getLastCuentaAsArray() {
@@ -146,6 +156,38 @@ public class AltaCuentasDAL {
 			cuentas.writeChar('B');
 			return true;
 		}catch(Exception e) {return false;}
+	}
+	
+	public void afectar(String subSubCuenta, char tipo, float importe) {
+		String cuentaPrincipal = subSubCuenta.substring(0,2)+"0000",
+				subCuenta= subSubCuenta.substring(0,4)+"00";
+		
+		System.out.println("Cuentas: "+cuentaPrincipal+" "+subCuenta+" "+subSubCuenta);
+		int posSubSub = busquedaBinaria(subSubCuenta), 
+				posCuenta = busquedaBinaria(cuentaPrincipal) ,
+				posSub = busquedaBinaria(subCuenta);
+		
+			try {
+				if(tipo == 'C') {
+					cuentas.seek(((posCuenta - 1)*TOTAL_REGISTRATIONS)+34);
+					cuentas.writeFloat(importe);
+					cuentas.seek(((posSub - 1)*TOTAL_REGISTRATIONS)+34);
+					cuentas.writeFloat(importe);
+					cuentas.seek(((posSubSub - 1)*TOTAL_REGISTRATIONS)+34);
+					cuentas.writeFloat(importe);
+					
+					return;
+				}
+				
+				cuentas.seek(((posCuenta - 1)*TOTAL_REGISTRATIONS)+38);
+				cuentas.writeFloat(importe);
+				cuentas.seek(((posSub - 1)*TOTAL_REGISTRATIONS)+38);
+				cuentas.writeFloat(importe);
+				cuentas.seek(((posSubSub - 1)*TOTAL_REGISTRATIONS)+38);
+				cuentas.writeFloat(importe);
+
+			} catch (IOException e) {}
+		
 	}
 	
 	public void quickSort(int limIzq, int limDer) {

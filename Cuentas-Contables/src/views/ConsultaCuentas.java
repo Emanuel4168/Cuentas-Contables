@@ -2,6 +2,7 @@ package views;
 
 import java.awt.*;
 import java.util.Arrays;
+import java.util.Vector;
 
 import javax.swing.*;
 import javax.swing.table.*;
@@ -14,12 +15,14 @@ public class ConsultaCuentas extends JPanel{
 	private JButton btnConsultar;
 	private JScrollPane scroll;
 	private JTable tablaConsultas;
-	private final String[] columnNames = {"Cuenta","Nombre","Saldo","Cargo","Abono","Status"};
-	private String[][] cuentas;
+	private Vector<String> columnNames; 
+	private Vector<Vector<String>>cuentas;
 	private ConsultaCuentasController controller;
 	
 	public ConsultaCuentas() {
 		super(new BorderLayout());
+		String[] cn = {"Cuenta","Nombre","Saldo","Cargo","Abono","Status"};
+		columnNames = new Vector<String>(Arrays.asList(cn));
 		createNorthPane();
 		createSouthPane();
 	}
@@ -50,14 +53,22 @@ public class ConsultaCuentas extends JPanel{
 		add(center,BorderLayout.CENTER);
 	}
 	
-	public void updateTable() {
-		cuentas = controller.getCuentas();
-		tablaConsultas = new JTable(cuentas,columnNames);
+	public void updateTable(Vector<Vector<String>> totalCuentas) {
+		if(totalCuentas.size() == 0)
+			return;
+		
+		for(int i = 0; i < totalCuentas.size(); i++) {
+			if(i < cuentas.size()) {
+				System.out.println(totalCuentas.size()+"Actual: "+i);
+				cuentas.set(i, totalCuentas.get(i));
+				continue;
+			}
+			cuentas.add(totalCuentas.get(i));
+		}
 		SwingUtilities.updateComponentTreeUI(tablaConsultas);
-		tablaConsultas.update(tablaConsultas.getGraphics());
 	}
 	
-	public void setCuentas(String[][] cuentas) {
+	public void setCuentas(Vector<Vector<String>> cuentas) {
 		this.cuentas = cuentas;
 	}
 
