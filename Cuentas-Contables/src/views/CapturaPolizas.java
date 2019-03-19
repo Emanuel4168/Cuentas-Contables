@@ -16,15 +16,17 @@ public class CapturaPolizas extends JPanel{
 	private JNumericFormField txtPoliza,txtSubSubCuenta,txtImporte;
 	private JRadioButton rbtCargo,rbtAbono;
 	private ButtonGroup group;
-	private JButton btnNuevaCuenta,btnGrabar,btnAfectar;
+	private JButton btnNuevaCuenta,btnGrabar,btnAfectar,btnModificarAsiento;
 	private Vector<Vector<String>> poliza;
 	private final String[] COL_NAMES_ARRAY = {"N° poliza","sub-Sub Cuenta","Tipo","Importe"};
 	private final Vector<String> COLUMN_NAMES = new Vector<String>(Arrays.asList(COL_NAMES_ARRAY));
+	private Vector<JButton> editButtons;
 	private CapturaPolizasController controller;
 	
 	public CapturaPolizas() {
 		super(new BorderLayout());
 		poliza = new Vector<Vector<String>>();
+		editButtons = new Vector<JButton>();
 		createNortPane();
 		createCenterPane();
 		createSouthPane();
@@ -64,6 +66,7 @@ public class CapturaPolizas extends JPanel{
 		txtImporte.setNextComponent(btnNuevaCuenta);
 		btnGrabar = new JButton("Grabar en disco");
 		btnAfectar = new JButton("Afectar");
+		btnModificarAsiento = new JButton("Modificar Asiento");
 		
 		center.add(poliza);
 		center.add(txtPoliza);
@@ -76,30 +79,41 @@ public class CapturaPolizas extends JPanel{
 		center.add(btnNuevaCuenta);
 		center.add(btnGrabar);
 		center.add(btnAfectar);
+		center.add(btnModificarAsiento);
+		btnModificarAsiento.setEnabled(false);
 		
 		add(center,BorderLayout.CENTER);
 	}
 	
 	private void createSouthPane() {
 		south = new JPanel();
-		JScrollPane scroll = new JScrollPane(south);
+		
+		editButtons.add(new JButton(" "));
+		editButtons.get(0).setEnabled(false);
+		
+		JScrollPane scroll = new JScrollPane();
+
 		if(poliza.size() < 1) 
 			initializePoliza();
 		polizaConsulta = new JTable(poliza,COLUMN_NAMES);
 		polizaConsulta.setPreferredSize(new Dimension(400,200));
 		south.add(polizaConsulta);
-		add(scroll,BorderLayout.SOUTH);
+		
+		scroll.add(south);
+
+		add(south,BorderLayout.SOUTH);
 	}
 	
 	public void addPoliza() {
 		Vector<String> row = new Vector<String>();
 		row.add(txtPoliza.getText());
 		row.add(txtSubSubCuenta.getText());
-		row.add(txtImporte.getText());
 		row.add(rbtCargo.isSelected()? "C":"A");
+		row.add(txtImporte.getText());
 		poliza.addElement(row);
 //		DefaultTableModel tableModel = (DefaultTableModel)polizaConsulta.getModel();
 //		tableModel.addRow(row);
+		editButtons.add(new JButton());
 		SwingUtilities.updateComponentTreeUI(polizaConsulta);
 	}
 	
@@ -145,7 +159,10 @@ public class CapturaPolizas extends JPanel{
 	private void addListeners() {
 		btnNuevaCuenta.addActionListener(controller);
 		btnGrabar.addActionListener(controller);
-		btnAfectar.addActionListener(controller);;
+		btnAfectar.addActionListener(controller);
+		btnModificarAsiento.addActionListener(controller);
+		
+		polizaConsulta.addMouseListener(controller);
 	}
 	
 	public boolean isBalanced() {
@@ -165,6 +182,8 @@ public class CapturaPolizas extends JPanel{
 	
 	public void restart() {
 		poliza = new Vector<Vector<String>>();
+		polizaConsulta = new JTable(poliza,COLUMN_NAMES);
+		SwingUtilities.updateComponentTreeUI(polizaConsulta);
 	}
 
 	public JNumericFormField getTxtPoliza() {
@@ -190,10 +209,18 @@ public class CapturaPolizas extends JPanel{
 	public JButton getBtnAfectar() {
 		return btnAfectar;
 	}
+	
+	public JButton getBtnModificarAsiento() {
+		return this.btnModificarAsiento;
+	}
 
 	public void setController(CapturaPolizasController controller) {
 		this.controller = controller;
 		addListeners();
+	}
+
+	public JTable getPolizaConsulta() {
+		return polizaConsulta;
 	}
 
 }

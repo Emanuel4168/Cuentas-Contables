@@ -1,15 +1,17 @@
 package controllers;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
+
+import javax.swing.table.DefaultTableModel;
 
 import models.Asiento;
 import models.CapturaPolizasModel;
 import views.CapturaPolizas;
 
-public class CapturaPolizasController implements ActionListener {
+public class CapturaPolizasController implements ActionListener, MouseListener {
 	private CapturaPolizasModel model;
 	private CapturaPolizas view;
+	private int selectedRow;
 	
 	public CapturaPolizasController(CapturaPolizasModel model, CapturaPolizas view) {
 		this.model = model;
@@ -18,10 +20,11 @@ public class CapturaPolizasController implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		String poliza = view.getTxtPoliza().getText(),
+				subSubC = view.getTxtSubSubCuenta().getText(),
+				importe = view.getTxtImporte().getText();
+		
 		if(e.getSource() == view.getBtnNuevaCuenta()) {
-			String poliza = view.getTxtPoliza().getText(),
-					subSubC = view.getTxtSubSubCuenta().getText(),
-					importe = view.getTxtImporte().getText();
 			
 			if(poliza.length() < 4 || subSubC.length() < 6 || importe.length() < 1) {
 				view.showError();
@@ -37,11 +40,11 @@ public class CapturaPolizasController implements ActionListener {
 				return;
 			}
 			
-			Asiento[] poliza = view.polizaAsArray();
-			System.out.println("POLIZAS: "+poliza.length);
-			for(int i = 0;i < poliza.length; i++) {
-				if(!model.grabarAsiento(poliza[i])) {
-					view.showNotFoundError(poliza[i].getSubSubCuenta());
+			Asiento[] polizaAr = view.polizaAsArray();
+			System.out.println("POLIZAS: "+polizaAr.length);
+			for(int i = 0;i < polizaAr.length; i++) {
+				if(!model.grabarAsiento(polizaAr[i])) {
+					view.showNotFoundError(polizaAr[i].getSubSubCuenta());
 					return;
 				}
 			}
@@ -55,6 +58,57 @@ public class CapturaPolizasController implements ActionListener {
 			
 			return;
 		}
+		if(e.getSource() == view.getBtnModificarAsiento()) {
+			view.getBtnModificarAsiento().setEnabled(false);
+			DefaultTableModel model = (DefaultTableModel) view.getPolizaConsulta().getModel();
+			int selectedRow = view.getPolizaConsulta().getSelectedRow();
+			
+			model.setValueAt(poliza, selectedRow, 0);
+			model.setValueAt(subSubC, selectedRow, 1);
+			model.setValueAt(importe, selectedRow, 3);
+			return;
+		}
+		
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if(e.getSource() == view.getPolizaConsulta()) {
+			System.out.println("YES");
+			DefaultTableModel model = (DefaultTableModel) view.getPolizaConsulta().getModel();
+			selectedRow = view.getPolizaConsulta().getSelectedRow();
+			
+			view.getTxtPoliza().setText(model.getValueAt(selectedRow, 0).toString());
+			view.getTxtSubSubCuenta().setText(model.getValueAt(selectedRow, 1).toString());
+			view.getTxtImporte().setText(model.getValueAt(selectedRow, 3).toString());
+			
+			view.getBtnModificarAsiento().setEnabled(true);
+			return;
+		}
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
 		
 	}
 	
