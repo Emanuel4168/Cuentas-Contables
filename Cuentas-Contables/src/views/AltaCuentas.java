@@ -76,6 +76,8 @@ public class AltaCuentas extends JPanel{
 		txtCuenta.setText("");
 		txtNombre.setText("");
 		txtSaldo.setText("");
+		
+		txtCuenta.requestFocus();
 	}
 
 	public JNumericFormField getTxtCuenta() {

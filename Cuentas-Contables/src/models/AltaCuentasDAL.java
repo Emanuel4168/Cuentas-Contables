@@ -166,6 +166,7 @@ public class AltaCuentasDAL {
 		int posSubSub = busquedaBinaria(subSubCuenta), 
 				posCuenta = busquedaBinaria(cuentaPrincipal) ,
 				posSub = busquedaBinaria(subCuenta);
+		float newSaldo = 0;
 		
 			try {
 				if(tipo == 'C') {

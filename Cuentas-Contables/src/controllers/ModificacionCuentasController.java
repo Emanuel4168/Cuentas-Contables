@@ -32,6 +32,7 @@ public class ModificacionCuentasController implements ActionListener{
 			}	
 			
 			view.showError();
+			view.limpiar();
 			return;
 		}
 		if(e.getSource() == view.getBtnLimpiar()) {

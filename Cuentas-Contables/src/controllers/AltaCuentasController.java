@@ -26,10 +26,13 @@ public class AltaCuentasController implements ActionListener{
 			float saldo = Float.parseFloat(view.getTxtSaldo().getText());
 			Cuenta cuentaReg = new Cuenta(cuenta,nombre,saldo,0f,0f,'A');
 			
-			if(model.guardarCenta(cuentaReg))
+			if(model.guardarCenta(cuentaReg)) {
 				view.limpiar();
-			else 
-				view.showError();
+				return;	
+			}
+			
+			view.showError();
+			view.limpiar();
 			return;
 		}
 		if(evt.getSource() == view.getBtnLimpiar()) {

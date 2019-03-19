@@ -30,6 +30,7 @@ public class BajaCuentaController implements ActionListener{
 				return;
 			}
 			view.showError();
+			view.limpiar();
 			return;
 		}
 		if(e.getSource() == view.getBtnLimpiar()) {

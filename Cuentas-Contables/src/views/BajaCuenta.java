@@ -58,6 +58,7 @@ public class BajaCuenta  extends JPanel{
 	
 	public void limpiar() {
 		txtCuenta.setText("");
+		txtCuenta.requestFocus();
 	}
 	
 	private void addListeners() {

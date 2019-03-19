@@ -73,6 +73,7 @@ public class ModificacionCuenta extends JPanel{
 	public void limpiar() {
 		txtCuenta.setText("");
 		txtNombre.setText("");
+		txtCuenta.requestFocus();
 	}
 	
 	private void addListeners() {
