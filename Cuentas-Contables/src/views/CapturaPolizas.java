@@ -129,8 +129,12 @@ public class CapturaPolizas extends JPanel{
 		JOptionPane.showMessageDialog(this, "La sub sub cuenta "+ cuenta+" no ha sido registrada");
 	}
 	
-	public void showSucces() {
-		JOptionPane.showMessageDialog(this, "XXX");
+	public void showSuccesWrite() {
+		JOptionPane.showMessageDialog(this, "Poliza Grabada con exito");
+	}
+	
+	public void showSuccesaffectation() {
+		JOptionPane.showMessageDialog(this, "Afectacion exitosa");
 	}
 	
 	public Asiento[] polizaAsArray() {
@@ -140,9 +144,9 @@ public class CapturaPolizas extends JPanel{
 			currentRegistry = poliza.get(i);
 			polizaArray[i-1] = new Asiento(currentRegistry.get(0)
 											,currentRegistry.get(1)
-											,currentRegistry.get(3).charAt(0)
+											,currentRegistry.get(2).charAt(0)
 											,'A'
-											,Float.parseFloat(currentRegistry.get(2)));
+											,Float.parseFloat(currentRegistry.get(3)));
 		}
 		return polizaArray;
 	}
@@ -170,8 +174,8 @@ public class CapturaPolizas extends JPanel{
 		Vector<String> currentRegistry;
 		for(int i = 1; i < poliza.size(); i++) {
 			currentRegistry = poliza.get(i);
-			importCR = Float.parseFloat(currentRegistry.get(2));
-			if(currentRegistry.get(3).equals("C")) {
+			importCR = Float.parseFloat(currentRegistry.get(3));
+			if(currentRegistry.get(2).equals("C")) {
 				cargo += importCR;
 				continue;
 			}
@@ -181,8 +185,7 @@ public class CapturaPolizas extends JPanel{
 	}
 	
 	public void restart() {
-		poliza = new Vector<Vector<String>>();
-		polizaConsulta = new JTable(poliza,COLUMN_NAMES);
+		poliza.removeAllElements();
 		SwingUtilities.updateComponentTreeUI(polizaConsulta);
 	}
 

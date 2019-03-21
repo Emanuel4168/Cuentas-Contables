@@ -166,26 +166,42 @@ public class AltaCuentasDAL {
 		int posSubSub = busquedaBinaria(subSubCuenta), 
 				posCuenta = busquedaBinaria(cuentaPrincipal) ,
 				posSub = busquedaBinaria(subCuenta);
-		float newSaldo = 0;
+		float auxImporte = 0;
 		
 			try {
 				if(tipo == 'C') {
 					cuentas.seek(((posCuenta - 1)*TOTAL_REGISTRATIONS)+34);
-					cuentas.writeFloat(importe);
+					auxImporte = cuentas.readFloat() + importe;
+					cuentas.seek(((posCuenta - 1)*TOTAL_REGISTRATIONS)+34);
+					cuentas.writeFloat(auxImporte);
+					
 					cuentas.seek(((posSub - 1)*TOTAL_REGISTRATIONS)+34);
-					cuentas.writeFloat(importe);
+					auxImporte = cuentas.readFloat() + importe;
+					cuentas.seek(((posSub - 1)*TOTAL_REGISTRATIONS)+34);
+					cuentas.writeFloat(auxImporte);
+					
 					cuentas.seek(((posSubSub - 1)*TOTAL_REGISTRATIONS)+34);
-					cuentas.writeFloat(importe);
+					auxImporte = cuentas.readFloat() + importe;
+					cuentas.seek(((posSubSub - 1)*TOTAL_REGISTRATIONS)+34);
+					cuentas.writeFloat(auxImporte);
 					
 					return;
 				}
 				
 				cuentas.seek(((posCuenta - 1)*TOTAL_REGISTRATIONS)+38);
-				cuentas.writeFloat(importe);
+				auxImporte = cuentas.readFloat() + importe;
+				cuentas.seek(((posCuenta - 1)*TOTAL_REGISTRATIONS)+38);
+				cuentas.writeFloat(auxImporte);
+				
 				cuentas.seek(((posSub - 1)*TOTAL_REGISTRATIONS)+38);
-				cuentas.writeFloat(importe);
+				auxImporte = cuentas.readFloat() + importe;
+				cuentas.seek(((posSub - 1)*TOTAL_REGISTRATIONS)+38);
+				cuentas.writeFloat(auxImporte);
+				
 				cuentas.seek(((posSubSub - 1)*TOTAL_REGISTRATIONS)+38);
-				cuentas.writeFloat(importe);
+				auxImporte = cuentas.readFloat() + importe;
+				cuentas.seek(((posSubSub - 1)*TOTAL_REGISTRATIONS)+38);
+				cuentas.writeFloat(auxImporte);
 
 			} catch (IOException e) {}
 		

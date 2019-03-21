@@ -49,12 +49,14 @@ public class CapturaPolizasController implements ActionListener, MouseListener {
 				}
 			}
 			
+			view.showSuccesWrite();
 			view.restart();
 			
 			return;
 		}
 		if(e.getSource() == view.getBtnAfectar()) {
 			model.afectar();
+			view.showSuccesaffectation();
 			
 			return;
 		}
