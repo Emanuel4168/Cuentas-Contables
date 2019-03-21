@@ -28,6 +28,7 @@ public class CapturaPolizasController implements ActionListener, MouseListener {
 			
 			if(poliza.length() < 4 || subSubC.length() < 6 || importe.length() < 1) {
 				view.showError();
+				view.limpiar();
 				return;
 			}
 			
@@ -37,6 +38,7 @@ public class CapturaPolizasController implements ActionListener, MouseListener {
 		if(e.getSource() == view.getBtnGrabar()) {
 			if(!view.isBalanced()) {
 				view.showBalanceError();
+				view.limpiar();
 				return;
 			}
 			
@@ -45,11 +47,13 @@ public class CapturaPolizasController implements ActionListener, MouseListener {
 			for(int i = 0;i < polizaAr.length; i++) {
 				if(!model.grabarAsiento(polizaAr[i])) {
 					view.showNotFoundError(polizaAr[i].getSubSubCuenta());
+					view.limpiar();
 					return;
 				}
 			}
 			
 			view.showSuccesWrite();
+			view.limpiar();
 			view.restart();
 			
 			return;
@@ -57,7 +61,8 @@ public class CapturaPolizasController implements ActionListener, MouseListener {
 		if(e.getSource() == view.getBtnAfectar()) {
 			model.afectar();
 			view.showSuccesaffectation();
-			
+			view.limpiar();
+			view.restart();
 			return;
 		}
 		if(e.getSource() == view.getBtnModificarAsiento()) {
@@ -76,7 +81,6 @@ public class CapturaPolizasController implements ActionListener, MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getSource() == view.getPolizaConsulta()) {
-			System.out.println("YES");
 			DefaultTableModel model = (DefaultTableModel) view.getPolizaConsulta().getModel();
 			selectedRow = view.getPolizaConsulta().getSelectedRow();
 			

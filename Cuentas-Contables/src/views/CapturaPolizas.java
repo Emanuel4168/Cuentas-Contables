@@ -117,6 +117,14 @@ public class CapturaPolizas extends JPanel{
 		SwingUtilities.updateComponentTreeUI(polizaConsulta);
 	}
 	
+	public void limpiar() {
+		txtPoliza.setText("");
+		txtSubSubCuenta.setText("");
+		txtImporte.setText("");
+		
+		txtPoliza.requestFocus();
+	}
+	
 	public void showError() {
 		JOptionPane.showMessageDialog(this, "Error al llenar el formulario");
 	}
