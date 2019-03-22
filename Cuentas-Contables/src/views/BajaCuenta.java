@@ -42,6 +42,7 @@ public class BajaCuenta  extends JPanel{
 	private void createSouthPane(){
 		JPanel south = new JPanel();
 		btnGuardar = new JButton("Aceptar");
+		txtCuenta.setNextComponent(btnGuardar);
 		btnLimpiar = new JButton("Limpiar");
 		south.add(btnGuardar);
 		south.add(btnLimpiar);
