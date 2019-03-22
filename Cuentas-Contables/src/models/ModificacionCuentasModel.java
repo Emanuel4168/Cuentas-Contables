@@ -4,7 +4,7 @@ public class ModificacionCuentasModel {
 	AltaCuentasDAL dal;
 
 	public ModificacionCuentasModel() {
-		dal = new AltaCuentasDAL();
+		dal = AltaCuentasDAL.getInstance();
 	}
 	
 	public boolean modificarCuenta(String cuenta, String nNombre) {

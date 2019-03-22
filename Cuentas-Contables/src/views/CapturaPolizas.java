@@ -195,6 +195,7 @@ public class CapturaPolizas extends JPanel{
 	
 	public void restart() {
 		poliza.removeAllElements();
+		initializePoliza();
 		SwingUtilities.updateComponentTreeUI(polizaConsulta);
 	}
 

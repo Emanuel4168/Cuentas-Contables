@@ -5,18 +5,26 @@ import java.io.*;
 public class PolizasDAL {
 	private RandomAccessFile polizas;
 	private AltaCuentasDAL cuentasDAL;
+	private static PolizasDAL instance;
 	private final int REGISTRY_LENGTH = 22;
 	
-	public PolizasDAL() {
+	private PolizasDAL() {
 		try {
-			cuentasDAL = new AltaCuentasDAL();
+			cuentasDAL = AltaCuentasDAL.getInstance();
 			polizas = new RandomAccessFile("polizas.dat","rw");
 		} catch (FileNotFoundException e) {}
 	}
 	
+	public static PolizasDAL getInstance() {
+		if(instance == null)
+			instance = new PolizasDAL();
+		
+		return instance;
+	}
+	
 	public boolean escribirAsiento(Asiento asiento) {
 //		System.out.println(asiento);
-		if(cuentasDAL.busquedaBinaria(asiento.getSubSubCuenta()) == -1)
+		if(cuentasDAL.busquedaBinaria(asiento.getSubSubCuenta()) == -1 || cuentasDAL.getCuenta(asiento.getSubSubCuenta()).getStatus() == 'B')
 			return false;
 		
 		try {

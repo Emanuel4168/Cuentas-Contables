@@ -9,13 +9,22 @@ import routines.Rutinas;
 public class AltaCuentasDAL {
 	RandomAccessFile cuentas;
 	RandomAccessFile indices;
+	
+	private static AltaCuentasDAL instance;
 	private final int TOTAL_REGISTRATIONS= 44; 
 	
-	public AltaCuentasDAL() {
+	private AltaCuentasDAL() {
 		try {
 			cuentas = new RandomAccessFile("cuentas.dat","rw");
 			indices = new RandomAccessFile("indices.dat","rw");
 		} catch (FileNotFoundException e) {}
+	}
+	
+	public static AltaCuentasDAL getInstance() {
+		if(instance == null)
+			instance = new AltaCuentasDAL();
+		
+		return instance;
 	}
 	
 	public void escribirRegistro(Cuenta registro) {

@@ -84,6 +84,9 @@ public class CapturaPolizasController implements ActionListener, MouseListener {
 			DefaultTableModel model = (DefaultTableModel) view.getPolizaConsulta().getModel();
 			selectedRow = view.getPolizaConsulta().getSelectedRow();
 			
+			if(selectedRow == -1)
+				return;
+			
 			view.getTxtPoliza().setText(model.getValueAt(selectedRow, 0).toString());
 			view.getTxtSubSubCuenta().setText(model.getValueAt(selectedRow, 1).toString());
 			view.getTxtImporte().setText(model.getValueAt(selectedRow, 3).toString());

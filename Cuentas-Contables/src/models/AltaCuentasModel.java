@@ -5,7 +5,7 @@ public class AltaCuentasModel {
 	AltaCuentasDAL dal;
 	
 	public AltaCuentasModel() {
-		dal = new AltaCuentasDAL();
+		dal = AltaCuentasDAL.getInstance();
 	}
 	
 	public boolean guardarCenta(Cuenta cuenta) {

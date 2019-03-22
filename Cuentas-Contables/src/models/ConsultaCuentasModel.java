@@ -6,7 +6,7 @@ public class ConsultaCuentasModel {
 	AltaCuentasDAL dal;
 	
 	public ConsultaCuentasModel() {
-		dal = new AltaCuentasDAL();
+		dal = AltaCuentasDAL.getInstance();
 	}
 	
 	public long getTotalCuentas() {

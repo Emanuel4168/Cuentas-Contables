@@ -5,7 +5,7 @@ public class CapturaPolizasModel {
 	private PolizasDAL dal;
 	
 	public CapturaPolizasModel() {
-		dal = new PolizasDAL();
+		dal = PolizasDAL.getInstance();
 	}
 	
 	public boolean grabarAsiento(Asiento asiento) {

@@ -5,7 +5,7 @@ public class BajaCuentaModel {
 	private AltaCuentasDAL dal;
 	
 	public BajaCuentaModel() {
-		dal = new AltaCuentasDAL();
+		dal = AltaCuentasDAL.getInstance();
 	}
 	
 	public boolean bajaCuenta(String cuentaBaja) {
