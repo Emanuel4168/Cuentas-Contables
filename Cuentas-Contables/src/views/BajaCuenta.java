@@ -3,11 +3,11 @@ package views;
 import java.awt.*;
 import javax.swing.*;
 
-import components.JNumericFormField;
+import components.*;
 import controllers.BajaCuentaController;
 
 public class BajaCuenta  extends JPanel{
-	private JNumericFormField txtCuenta;
+	private JIntegerFormField txtCuenta;
 	private JButton btnGuardar,btnLimpiar;
 	private BajaCuentaController controller;
 	
@@ -28,7 +28,7 @@ public class BajaCuenta  extends JPanel{
 	
 	private void createCenterPane(){
 		JPanel center = new JPanel();
-		txtCuenta = new JNumericFormField(6,null);
+		txtCuenta = new JIntegerFormField(6,null);
 		txtCuenta.setPreferredSize(new Dimension(150,30));
 		
 		JLabel cuenta = new JLabel("Cuenta:");
@@ -74,7 +74,7 @@ public class BajaCuenta  extends JPanel{
 		return btnLimpiar;
 	}
 
-	public JNumericFormField getTxtCuenta() {
+	public JIntegerFormField getTxtCuenta() {
 		return txtCuenta;
 	}
 

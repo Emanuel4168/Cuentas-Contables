@@ -2,14 +2,14 @@ package components;
 
 import java.awt.event.*;
 
-public class JNumericFormField extends JFormField implements KeyListener{
+public class JIntegerFormField extends JFormField implements KeyListener{
 	private int size;
 
-	public JNumericFormField(int size){
+	public JIntegerFormField(int size){
 		this(size,null);
 	}
 	
-	public JNumericFormField(int size, JFormField field){
+	public JIntegerFormField(int size, JFormField field){
 		super(field);
 		this.size = size;
 		addKeyListener(this);
@@ -37,10 +37,6 @@ public class JNumericFormField extends JFormField implements KeyListener{
 			return;
 		}
 
-		if(T=='.' && getText().indexOf(".") >=0 ){
-			e.consume();
-			return;
-		}
 		if(T=='-' && getText().length()>0){
 			e.consume();
 			return;

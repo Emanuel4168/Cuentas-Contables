@@ -13,7 +13,8 @@ public class CapturaPolizas extends JPanel{
 	
 	private JPanel north,center,south;
 	private JTable polizaConsulta;
-	private JNumericFormField txtPoliza,txtSubSubCuenta,txtImporte;
+	private JIntegerFormField txtPoliza,txtSubSubCuenta;
+	private JDecimalFormField txtImporte;
 	private JRadioButton rbtCargo,rbtAbono;
 	private ButtonGroup group;
 	private JButton btnNuevaCuenta,btnGrabar,btnAfectar,btnModificarAsiento;
@@ -42,9 +43,9 @@ public class CapturaPolizas extends JPanel{
 	
 	private void createCenterPane() {
 		JPanel center = new JPanel(new GridLayout(0,2,5,5));
-		txtPoliza = new JNumericFormField(4);
-		txtSubSubCuenta = new JNumericFormField(6);
-		txtImporte = new JNumericFormField(8);
+		txtPoliza = new JIntegerFormField(4);
+		txtSubSubCuenta = new JIntegerFormField(6);
+		txtImporte = new JDecimalFormField(8);
 		txtPoliza.setNextComponent(txtSubSubCuenta);
 		txtSubSubCuenta.setNextComponent(txtImporte);		
 		
@@ -197,15 +198,15 @@ public class CapturaPolizas extends JPanel{
 		SwingUtilities.updateComponentTreeUI(polizaConsulta);
 	}
 
-	public JNumericFormField getTxtPoliza() {
+	public JIntegerFormField getTxtPoliza() {
 		return txtPoliza;
 	}
 
-	public JNumericFormField getTxtSubSubCuenta() {
+	public JIntegerFormField getTxtSubSubCuenta() {
 		return txtSubSubCuenta;
 	}
 
-	public JNumericFormField getTxtImporte() {
+	public JDecimalFormField getTxtImporte() {
 		return txtImporte;
 	}
 

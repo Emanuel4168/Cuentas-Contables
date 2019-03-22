@@ -6,7 +6,7 @@ import components.*;
 import controllers.ModificacionCuentasController;
 
 public class ModificacionCuenta extends JPanel{
-	private JNumericFormField txtCuenta;
+	private JIntegerFormField txtCuenta;
 	private JTextFormField txtNombre;
 	private JButton btnGuardar,btnLimpiar;
 	private ModificacionCuentasController controller;
@@ -29,7 +29,7 @@ public class ModificacionCuenta extends JPanel{
 	private void createCenterPane(){
 		JPanel center = new JPanel(new GridLayout(0,1)),
 				field1 = new JPanel(), field2 = new JPanel();
-		txtCuenta = new JNumericFormField(6);
+		txtCuenta = new JIntegerFormField(6);
 		txtNombre = new JTextFormField(30);
 		
 		txtCuenta.setNextComponent(txtNombre);
@@ -86,7 +86,7 @@ public class ModificacionCuenta extends JPanel{
 		addListeners();
 	}
 
-	public JNumericFormField getTxtCuenta() {
+	public JIntegerFormField getTxtCuenta() {
 		return txtCuenta;
 	}
 

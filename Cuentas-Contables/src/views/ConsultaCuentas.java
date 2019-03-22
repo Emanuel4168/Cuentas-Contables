@@ -7,7 +7,7 @@ import java.util.Vector;
 import javax.swing.*;
 import javax.swing.table.*;
 
-import components.JNumericFormField;
+import components.*;
 import controllers.ConsultaCuentasController;
 
 public class ConsultaCuentas extends JPanel{

@@ -7,7 +7,8 @@ import controllers.AltaCuentasController;
 
 public class AltaCuentas extends JPanel{
 	
-	private JNumericFormField txtCuenta,txtSaldo;
+	private JIntegerFormField txtCuenta;
+	private JDecimalFormField txtSaldo;
 	private JTextFormField txtNombre;
 	private JButton btnGuardar,btnLimpiar;
 	private AltaCuentasController controller;
@@ -34,9 +35,9 @@ public class AltaCuentas extends JPanel{
 	
 	private void createCenterPane(){
 		JPanel center = new JPanel(new GridLayout(0,2,20,60));
-		txtCuenta = new JNumericFormField(6);
+		txtCuenta = new JIntegerFormField(6);
 		txtNombre = new JTextFormField(30);
-		txtSaldo = new JNumericFormField(8);
+		txtSaldo = new JDecimalFormField(8);
 		
 		txtCuenta.setNextComponent(txtNombre);
 		txtNombre.setNextComponent(txtSaldo);
@@ -80,11 +81,11 @@ public class AltaCuentas extends JPanel{
 		txtCuenta.requestFocus();
 	}
 
-	public JNumericFormField getTxtCuenta() {
+	public JIntegerFormField getTxtCuenta() {
 		return txtCuenta;
 	}
 
-	public JNumericFormField getTxtSaldo() {
+	public JDecimalFormField getTxtSaldo() {
 		return txtSaldo;
 	}
 
