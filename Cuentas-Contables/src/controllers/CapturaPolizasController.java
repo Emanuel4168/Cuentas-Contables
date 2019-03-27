@@ -67,12 +67,8 @@ public class CapturaPolizasController implements ActionListener, MouseListener {
 		}
 		if(e.getSource() == view.getBtnModificarAsiento()) {
 			view.getBtnModificarAsiento().setEnabled(false);
-			DefaultTableModel model = (DefaultTableModel) view.getPolizaConsulta().getModel();
-			int selectedRow = view.getPolizaConsulta().getSelectedRow();
-			
-			model.setValueAt(poliza, selectedRow, 0);
-			model.setValueAt(subSubC, selectedRow, 1);
-			model.setValueAt(importe, selectedRow, 3);
+			view.rewrite();
+			view.limpiar();
 			return;
 		}
 		
@@ -81,15 +77,7 @@ public class CapturaPolizasController implements ActionListener, MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getSource() == view.getPolizaConsulta()) {
-			DefaultTableModel model = (DefaultTableModel) view.getPolizaConsulta().getModel();
-			selectedRow = view.getPolizaConsulta().getSelectedRow();
-			
-			if(selectedRow == -1)
-				return;
-			
-			view.getTxtPoliza().setText(model.getValueAt(selectedRow, 0).toString());
-			view.getTxtSubSubCuenta().setText(model.getValueAt(selectedRow, 1).toString());
-			view.getTxtImporte().setText(model.getValueAt(selectedRow, 3).toString());
+			view.modify();
 			
 			view.getBtnModificarAsiento().setEnabled(true);
 			return;

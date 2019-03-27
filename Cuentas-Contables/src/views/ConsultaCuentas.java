@@ -46,7 +46,7 @@ public class ConsultaCuentas extends JPanel{
 	
 	private void createCenterPane() {
 		center = new JPanel();
-		cuentas = controller.getCuentas();
+//		cuentas = controller.getCuentas();
 		tablaConsultas = new JTable(cuentas,columnNames);
 		scroll = new JScrollPane(tablaConsultas);
 		center.add(scroll);

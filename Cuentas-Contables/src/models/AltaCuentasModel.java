@@ -20,7 +20,7 @@ public class AltaCuentasModel {
 		if(!sub.equals("00"))
 			return validarSubCuenta(count,cuenta);
 		
-		if(dal.busquedaBinaria(count) != -1)
+		if(dal.busquedaBinaria(count) != -1 && dal.getCuenta(count).getStatus() == 'B')
 			return false;
 				
 		System.out.println("3. "+count+" Busqueda"+dal.busquedaBinaria(count));

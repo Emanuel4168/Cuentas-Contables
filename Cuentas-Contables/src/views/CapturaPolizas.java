@@ -169,6 +169,29 @@ public class CapturaPolizas extends JPanel{
 		poliza.addElement(row);
 	}
 	
+	public void modify() {
+		DefaultTableModel model = (DefaultTableModel) polizaConsulta.getModel();
+		int selectedRow = polizaConsulta.getSelectedRow();
+		
+		if(selectedRow == -1 || selectedRow == 0)
+			return;
+		
+		txtPoliza.setText(model.getValueAt(selectedRow, 0).toString());
+		txtSubSubCuenta.setText(model.getValueAt(selectedRow, 1).toString());
+		txtImporte.setText(model.getValueAt(selectedRow, 3).toString());
+	}
+	
+	public void rewrite() {
+		DefaultTableModel 	tableModel = (DefaultTableModel) polizaConsulta.getModel();
+		int selectedRow = polizaConsulta.getSelectedRow();
+		
+		tableModel.setValueAt(txtPoliza.getText(), selectedRow, 0);
+		tableModel.setValueAt(txtSubSubCuenta.getText(), selectedRow, 1);
+		tableModel.setValueAt(rbtCargo.isSelected()?"C":"A", selectedRow, 2);
+		tableModel.setValueAt(txtImporte.getText(), selectedRow, 3);
+		return;
+	}
+	
 	private void addListeners() {
 		btnNuevaCuenta.addActionListener(controller);
 		btnGrabar.addActionListener(controller);

@@ -12,7 +12,6 @@ public class ConsultaCuentasController  implements ActionListener{
 	private ConsultaCuentas view; 
 	
 	public ConsultaCuentasController(ConsultaCuentasModel model, ConsultaCuentas view) {
-		super();
 		this.model = model;
 		this.view = view;
 	}

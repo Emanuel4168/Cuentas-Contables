@@ -94,7 +94,7 @@ public class AltaCuentasDAL {
 
 	public boolean modificarCuenta(String cuenta, String nNombre) {
 		int pos = this.busquedaBinaria(cuenta);
-		if(pos == -1)
+		if(pos == -1 || getCuenta(cuenta).getStatus() == 'B')
 			return false;
 		
 		try {
