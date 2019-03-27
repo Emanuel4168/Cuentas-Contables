@@ -155,15 +155,49 @@ public class AltaCuentasDAL {
 		return cuenta;
 	}
 	
-	public boolean bajaCuenta(String cuentaBaja) {
+	public void bajaCuenta(String cuentaBaja) {
+		int pos = busquedaBinaria(cuentaBaja);
+	
+		try {
+			cuentas.seek(((pos-1)*TOTAL_REGISTRATIONS)+42);
+			cuentas.writeChar('B');
+		}catch(Exception e) {return ;}
+	}
+	
+	public boolean bajaTotal(String cuentaBaja) {
 		int pos = busquedaBinaria(cuentaBaja);
 		if(pos == -1)
 			return false;
 		
+		String cta = cuentaBaja.substring(0,2),
+				subCta = cuentaBaja.substring(2,4),
+				subSubCta = cuentaBaja.substring(4,6),aux;
+		
 		try {
-			cuentas.seek(((pos-1)*TOTAL_REGISTRATIONS)+42);
-			cuentas.writeChar('B');
+			int totalReg = (int) (cuentas.length()/TOTAL_REGISTRATIONS);
+			if(!subSubCta.equals("00")) {
+				bajaCuenta(cuentaBaja);
+				return true;
+			}
+			if(!subCta.equals("00")) {
+				for(int i = 0; i < totalReg; i++ ) {
+					cuentas.seek(i*TOTAL_REGISTRATIONS);
+					aux = cuentas.readUTF();
+					if(aux.substring(2, 4).equals(subCta))
+						bajaCuenta(aux);
+				}
+				return true;
+			}
+			
+			for(int i = 0; i < totalReg; i++ ) {
+				cuentas.seek(i*TOTAL_REGISTRATIONS);
+				aux = cuentas.readUTF();
+				if(aux.substring(0, 2).equals(cta))
+					bajaCuenta(aux);
+			}
 			return true;
+			
+			
 		}catch(Exception e) {return false;}
 	}
 	

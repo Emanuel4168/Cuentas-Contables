@@ -9,6 +9,6 @@ public class BajaCuentaModel {
 	}
 	
 	public boolean bajaCuenta(String cuentaBaja) {
-		return dal.bajaCuenta(cuentaBaja);
+		return dal.bajaTotal(cuentaBaja);
 	}
 }
