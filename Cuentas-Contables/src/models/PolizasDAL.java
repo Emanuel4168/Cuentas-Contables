@@ -22,11 +22,8 @@ public class PolizasDAL {
 		return instance;
 	}
 	
-	public boolean escribirAsiento(Asiento asiento) {
+	public void escribirAsiento(Asiento asiento) {
 //		System.out.println(asiento);
-		if(cuentasDAL.busquedaBinaria(asiento.getSubSubCuenta()) == -1 || cuentasDAL.getCuenta(asiento.getSubSubCuenta()).getStatus() == 'B')
-			return false;
-		
 		try {
 			polizas.seek(polizas.length());
 			polizas.writeUTF(asiento.getPoliza()); 		//6 bytes
@@ -34,8 +31,7 @@ public class PolizasDAL {
 			polizas.writeChar(asiento.getTipo());       //2 bytes   22 bytes
 			polizas.writeChar(asiento.getStatus());     //2 bytes
 			polizas.writeFloat(asiento.getImporte());   //4 bytes
-			return true;
-		}catch (IOException e) {return false;}
+		}catch (IOException e) {return;}
 	}
 	
 	public void afectar() {
@@ -60,5 +56,9 @@ public class PolizasDAL {
 				cuentasDAL.afectar(subSub, tipo, importe);
 			}
 		} catch (IOException e) {e.printStackTrace();}
+	}
+	
+	public boolean cuentaExist(String cuenta) {
+		return cuentasDAL.busquedaBinaria(cuenta) != -1 && cuentasDAL.getCuenta(cuenta).getStatus() == 'A';
 	}
 }

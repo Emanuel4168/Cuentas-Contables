@@ -32,7 +32,14 @@ public class CapturaPolizasController implements ActionListener, MouseListener {
 				return;
 			}
 			
+			if(!model.cuentaExist(subSubC)) {
+				view.showNotFoundError(subSubC);
+				view.limpiar();
+				return;
+			}
+			
 			view.addPoliza();
+			view.limpiar();
 			return;
 		}
 		if(e.getSource() == view.getBtnGrabar()) {
@@ -44,13 +51,8 @@ public class CapturaPolizasController implements ActionListener, MouseListener {
 			
 			Asiento[] polizaAr = view.polizaAsArray();
 			System.out.println("POLIZAS: "+polizaAr.length);
-			for(int i = 0;i < polizaAr.length; i++) {
-				if(!model.grabarAsiento(polizaAr[i])) {
-					view.showNotFoundError(polizaAr[i].getSubSubCuenta());
-					view.limpiar();
-					return;
-				}
-			}
+			for(int i = 0;i < polizaAr.length; i++) 
+				model.grabarAsiento(polizaAr[i]);
 			
 			view.showSuccesWrite();
 			view.limpiar();

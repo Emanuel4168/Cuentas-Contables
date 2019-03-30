@@ -8,12 +8,16 @@ public class CapturaPolizasModel {
 		dal = PolizasDAL.getInstance();
 	}
 	
-	public boolean grabarAsiento(Asiento asiento) {
-		return dal.escribirAsiento(asiento); 
+	public void grabarAsiento(Asiento asiento) {
+		 dal.escribirAsiento(asiento); 
 	}
 	
 	public void afectar() {
 		dal.afectar();
+	}
+	
+	public boolean cuentaExist(String cuenta) {
+		return dal.cuentaExist(cuenta);
 	}
 	
 }
