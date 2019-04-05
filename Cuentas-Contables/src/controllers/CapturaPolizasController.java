@@ -25,7 +25,14 @@ public class CapturaPolizasController implements ActionListener, MouseListener {
 				importe = view.getTxtImporte().getText();
 		
 		if(e.getSource() == view.getBtnNuevaCuenta()) {
+			if(view.getTxtPoliza().isEnabled() && model.polizaExist(poliza)) {
+				view.showPolizaIsRegisteredError();
+				view.limpiar();
+				return;
+			}
 			
+			view.getTxtPoliza().setEnabled(false);
+
 			if(poliza.length() < 4 || subSubC.length() < 6 || importe.length() < 1) {
 				view.showError();
 				view.limpiar();
@@ -33,7 +40,7 @@ public class CapturaPolizasController implements ActionListener, MouseListener {
 			}
 			
 			if(!model.cuentaExist(subSubC)) {
-				view.showNotFoundError(subSubC);
+				view.showCuentaNotFoundError(subSubC);
 				view.limpiar();
 				return;
 			}

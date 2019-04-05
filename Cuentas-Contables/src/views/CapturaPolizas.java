@@ -119,11 +119,17 @@ public class CapturaPolizas extends JPanel{
 	}
 	
 	public void limpiar() {
-		txtPoliza.setText("");
+		if(txtPoliza.isEnabled())
+			txtPoliza.setText("");
 		txtSubSubCuenta.setText("");
 		txtImporte.setText("");
 		
-		txtPoliza.requestFocus();
+		if(txtPoliza.isEnabled()) {
+			txtPoliza.requestFocus();
+			return;
+		}
+		
+		txtSubSubCuenta.requestFocus();
 	}
 	
 	public void showError() {
@@ -134,7 +140,11 @@ public class CapturaPolizas extends JPanel{
 		JOptionPane.showMessageDialog(this, "La poliza no está balanceada");
 	}
 	
-	public void showNotFoundError(String cuenta) {
+	public void showPolizaIsRegisteredError() {
+		JOptionPane.showMessageDialog(this, "La poliza ya existe");
+	}
+	
+	public void showCuentaNotFoundError(String cuenta) {
 		JOptionPane.showMessageDialog(this, "La sub sub cuenta "+ cuenta+" no ha sido registrada");
 	}
 	
@@ -219,6 +229,7 @@ public class CapturaPolizas extends JPanel{
 	public void restart() {
 		poliza.removeAllElements();
 		initializePoliza();
+		txtPoliza.setEnabled(true);
 		SwingUtilities.updateComponentTreeUI(polizaConsulta);
 	}
 

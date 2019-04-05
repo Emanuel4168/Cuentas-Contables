@@ -23,10 +23,12 @@ public class BajaCuentaController implements ActionListener{
 			String cuentaBaja = view.getTxtCuenta().getText();
 			if(cuentaBaja.length() < 6) {
 				view.showError();
+				view.limpiar();
 				return;
 			}
 			if(model.bajaCuenta(cuentaBaja)) {
 				view.showSucces();
+				view.limpiar();
 				return;
 			}
 			view.showError();

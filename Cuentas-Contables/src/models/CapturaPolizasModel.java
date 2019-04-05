@@ -20,4 +20,8 @@ public class CapturaPolizasModel {
 		return dal.cuentaExist(cuenta);
 	}
 	
+	public boolean polizaExist(String poliza) {
+		return dal.polizaExist(poliza);
+	}
+	
 }

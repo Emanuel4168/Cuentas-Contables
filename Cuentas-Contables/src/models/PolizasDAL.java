@@ -61,4 +61,16 @@ public class PolizasDAL {
 	public boolean cuentaExist(String cuenta) {
 		return cuentasDAL.busquedaBinaria(cuenta) != -1 && cuentasDAL.getCuenta(cuenta).getStatus() == 'A';
 	}
+	
+	public boolean polizaExist(String poliza) {
+		try {
+			int totalRegistros = (int) (polizas.length()/REGISTRY_LENGTH);
+			for(int i = 0; i < totalRegistros; i++) {
+				polizas.seek(i * REGISTRY_LENGTH);
+				if(polizas.readUTF().equals(poliza))
+					return true;
+			}
+		}catch(Exception e) {}
+		return false;
+	}
 }

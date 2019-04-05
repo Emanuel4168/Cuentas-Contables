@@ -137,23 +137,23 @@ public class AltaCuentasDAL {
 		} catch (IOException e) {return 0l;}	
 	}
 	
-	public String[] getLastCuentaAsArray() {
-		String [] cuenta = null;
-		long registros;
-		try {
-			registros = cuentas.length()/TOTAL_REGISTRATIONS;
-			cuenta = new String[6];
-			cuentas.seek((registros-1) * TOTAL_REGISTRATIONS);
-			cuenta[0] = cuentas.readUTF();
-			cuenta[1] = cuentas.readUTF();
-			cuenta[2] = cuentas.readFloat()+"";
-			cuenta[3] = cuentas.readFloat()+"";
-			cuenta[4] = cuentas.readFloat()+"";
-			cuenta[5] = cuentas.readChar()+"";
-			return cuenta;
-		} catch (IOException e) {}
-		return cuenta;
-	}
+//	public String[] getLastCuentaAsArray() {
+//		String [] cuenta = null;
+//		long registros;
+//		try {
+//			registros = cuentas.length()/TOTAL_REGISTRATIONS;
+//			cuenta = new String[6];
+//			cuentas.seek((registros-1) * TOTAL_REGISTRATIONS);
+//			cuenta[0] = cuentas.readUTF();
+//			cuenta[1] = cuentas.readUTF();
+//			cuenta[2] = cuentas.readFloat()+"";
+//			cuenta[3] = cuentas.readFloat()+"";
+//			cuenta[4] = cuentas.readFloat()+"";
+//			cuenta[5] = cuentas.readChar()+"";
+//			return cuenta;
+//		} catch (IOException e) {}
+//		return cuenta;
+//	}
 	
 	public void bajaCuenta(String cuentaBaja) {
 		int pos = busquedaBinaria(cuentaBaja);
